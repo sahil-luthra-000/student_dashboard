@@ -1,10 +1,10 @@
-import axios from "axios";
 import { ENDPOINTS } from "./networkConfig";
+import axios from "axios";
 
 function commonHeaders() {
   return {
     Authorization: "Bearer " + getAuthToken(),
-    "Content-Type": "multipart/form-data",
+    // "Content-Type": "multipart/form-data",
   };
 }
 
@@ -20,7 +20,6 @@ function getAuthToken() {
   }
   return "";
 }
-
 export const registerApi = async (data) => {
   // console.warn("Request:", loginDetails);
   let response = await axios({
@@ -47,6 +46,29 @@ export const getProfileApi = async () => {
     method: "get",
     url: ENDPOINTS.getProfile,
     headers: commonHeaders(),
+  });
+  return response;
+};
+
+export const updateProfileApi = async (id, data) => {
+  // console.warn("Request:", loginDetails);
+  console.log(data);
+  let response = await axios({
+    method: "put",
+    url: `${ENDPOINTS.updateProfile}/${id}`,
+    data: data,
+    headers: {
+      ...commonHeaders(),
+    },
+  });
+  return response;
+};
+
+export const getCoursesApi = async () => {
+  // console.warn("Request:", loginDetails);
+  let response = await axios({
+    method: "get",
+    url: ENDPOINTS.getCourses,
   });
   return response;
 };
